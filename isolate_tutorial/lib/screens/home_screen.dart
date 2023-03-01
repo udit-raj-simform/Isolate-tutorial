@@ -8,13 +8,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  File? _image;
-  final imagePicker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
   }
+
+  File? _image;
+  final imagePicker = ImagePicker();
 
   Future<void> getImage() async {
     debugPrint("waiting to receive image");
@@ -58,3 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
