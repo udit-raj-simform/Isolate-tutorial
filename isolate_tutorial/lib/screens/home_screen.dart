@@ -1,7 +1,28 @@
 import 'package:isolate_tutorial/util/exports.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  File? _image;
+  final imagePicker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> getImage() async {
+    debugPrint("waiting to receive image");
+    final image = await imagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = File(image!.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +40,20 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(5),
-          child: MaterialButton(
-            onPressed: () {
-              debugPrint("Button has been clicked");
-            },
-            child: const Text("Open Camera"),
-          ),
-        ),
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _image == null
+                    ? const Text("No Image Available For Preview")
+                    : Image.file(_image!),
+                MaterialButton(
+                  onPressed: () => getImage(),
+                  child: const Text("Open Camera"),
+                ),
+              ],
+            )),
       ),
     );
   }
