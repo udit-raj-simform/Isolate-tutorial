@@ -10,12 +10,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  File? _image;
-  final imagePicker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  File? _image;
+  final imagePicker = ImagePicker();
+
+  Future<void> getImage() async {
+    debugPrint("waiting to receive image");
+    final image = await imagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = File(image!.path);
+    });
   }
 
   @override
@@ -57,14 +66,3 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  void getImage(List<Object> arguments) async {
-    debugPrint("waiting to receive image");
-    final image = await imagePicker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = File(image!.path);
-    });
-  }
-}
-
-
