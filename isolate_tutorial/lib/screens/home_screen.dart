@@ -1,3 +1,4 @@
+import 'package:isolate_tutorial/util/exceptions.dart';
 import 'package:isolate_tutorial/util/exports.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -50,7 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? const Text("No Image Available For Preview")
                     : Image.file(_image!),
                 MaterialButton(
-                  onPressed: () => getImage(),
+                  onPressed: () {
+                    ExceptionHandling().functionUsingTryCatch();
+                    getImage();
+                  },
                   child: const Text("Open Camera"),
                 ),
               ],
