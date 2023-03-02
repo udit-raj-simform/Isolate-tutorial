@@ -1,5 +1,4 @@
-import 'dart:isolate';
-
+import 'package:isolate_tutorial/util/exceptions.dart';
 import 'package:isolate_tutorial/util/exports.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,12 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? const Text("No Image Available For Preview")
                     : Image.file(_image!),
                 MaterialButton(
-                  onPressed: () async {
-                    final receiverPort = ReceivePort();
-                    int a = 5;
-                    int b = 9;
-                    await Isolate.spawn(getImage, [a, b, receiverPort.sendPort]);
-
+                  onPressed: () {
+                    ExceptionHandling().functionUsingTryCatch();
+                    getImage();
                   },
                   child: const Text("Open Camera"),
                 ),
@@ -66,3 +62,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
